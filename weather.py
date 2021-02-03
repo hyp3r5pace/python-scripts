@@ -12,7 +12,7 @@ def get_current_weather(api_key, city=None):
         raise Exception('ERROR: get_current_weather(): API key is missing')
     
     if not city:
-        # current location
+        # get current location
         pass
     else:
         api = "http://api.openweathermap.org/data/2.5/weather?q={}&appid={}".format(city,api_key)
@@ -25,7 +25,7 @@ if __name__=="__main__":
     load_dotenv()
     api_key = os.getenv('WEATHER_API')
 
-    city = "Kolkata"
+    city = input('Enter city:')
     weather_data = get_current_weather(api_key, city)
     # temperature converted to celsius
     avg_temp = weather_data['main']['temp']
@@ -34,6 +34,7 @@ if __name__=="__main__":
     max_temp = weather_data['main']['temp_max'] - 273.15
 
     print("{} TEMPERATURE STATS\n".format(city.upper()))
-    print('Average Temperature: {}'.format(avg_temp))
-    print('Maximum Temperature: {}'.format(max_temp))
-    print('Minimum Temperature: {}'.format(min_temp))
+    # temperature rounded to 2 decimal places.
+    print('Average Temperature: {} celsius'.format(round(avg_temp, 2)))
+    print('Maximum Temperature: {} celsius'.format(round(max_temp, 2)))
+    print('Minimum Temperature: {} celsius'.format(round(min_temp, 2)))
