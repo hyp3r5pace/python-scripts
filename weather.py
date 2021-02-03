@@ -15,8 +15,13 @@ def get_current_weather(api_key, city=None):
         # get current location
         pass
     else:
+
         api = "http://api.openweathermap.org/data/2.5/weather?q={}&appid={}".format(city,api_key)
         response = requests.get(api)
+        # condition to handle failure of requests.
+        if response.status_code == 404:
+            raise Exception('URL not found\nPlease insert correct city name or api key')
+
         weather_data = response.json()
         return weather_data
 
