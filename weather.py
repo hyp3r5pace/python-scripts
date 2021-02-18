@@ -21,7 +21,6 @@ def create_config_file(city):
         ret.set("default", "city", city)
         ret.write(f)
 
-
 def read_config_file():
     """Read a config file and return the config parser object"""
     path = os.path.join('.', '.weather-config')
@@ -62,6 +61,7 @@ def get_current_weather(api_key, city=None):
     weather_data = response.json()
     return weather_data
 
+
 def show_current_temperature(weather_data, city):
     """Print the current temperature on terminal"""
 
@@ -71,17 +71,19 @@ def show_current_temperature(weather_data, city):
     min_temp = weather_data['main']['temp_min'] - 273.15
     max_temp = weather_data['main']['temp_max'] - 273.15
 
-    print("{} TEMPERATURE STATS\n".format(city.upper()))
+    print("{} TEMPERATURE STATS".format(city.upper()))
     # temperature rounded to 2 decimal places.
     print('Average Temperature: {} celsius'.format(round(avg_temp, 2)))
     print('Maximum Temperature: {} celsius'.format(round(max_temp, 2)))
     print('Minimum Temperature: {} celsius'.format(round(min_temp, 2)))
 
 
-def main():
+def show_current_pressure(weather_data, city):
+    pass
+
+def main(args=''):
     load_dotenv()
     api_key = os.getenv('WEATHER_API')
-
     # check if config file exist
     existence = check_config_file()
 
@@ -91,12 +93,12 @@ def main():
             if city: break
         create_config_file(city)
 
-    city = input('Enter city:')
+    city = args
     weather_data = get_current_weather(api_key, city)
 
     # print weather info on terminal
     show_current_temperature(weather_data, city)
 
-
 if __name__=="__main__":
-    main()
+    args = input('City: ')
+    main(args)

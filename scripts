@@ -1,0 +1,30 @@
+#!/usr/bin/env/env python3
+
+import weather
+import sys
+import argparse
+
+
+parser = argparse.ArgumentParser()
+
+# add argument parser for weather display
+parser.add_argument("-w",
+                    "--weather",
+                    dest="city",
+                    metavar="city",
+                    default="home",
+                    help="Specify the city for which weather info is to be displayed")
+
+def cmd_weather(args):
+    """Calls weather function and passes the argument provided by user"""
+    if args.city == 'home':
+        weather.main()
+    else:
+        weather.main(args.city)
+
+
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+
+    if args.city     : cmd_weather(args)
