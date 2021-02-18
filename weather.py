@@ -47,11 +47,10 @@ def get_current_weather(api_key, city=None):
         default_city = config['default']['city']
         api = create_api(api_key, default_city)
         response = requests.get(api)
-
+        # condition to handle failure of requests.
         if response.status_code == 404:
             raise Exception('URL not found\nPlease check your default city name or api key')
     else:
-
         api = create_api(api_key, city)
         response = requests.get(api)
         # condition to handle failure of requests.
@@ -71,15 +70,20 @@ def show_current_temperature(weather_data, city):
     min_temp = weather_data['main']['temp_min'] - 273.15
     max_temp = weather_data['main']['temp_max'] - 273.15
 
-    print("{} TEMPERATURE STATS".format(city.upper()))
+    print("TEMPERATURE")
     # temperature rounded to 2 decimal places.
     print('Average Temperature: {} celsius'.format(round(avg_temp, 2)))
     print('Maximum Temperature: {} celsius'.format(round(max_temp, 2)))
-    print('Minimum Temperature: {} celsius'.format(round(min_temp, 2)))
+    print('Minimum Temperature: {} celsius\n'.format(round(min_temp, 2)))
 
 
-def show_current_pressure(weather_data, city):
-    pass
+def show_current_humidity(weather_data, city):
+    """Print the current humidity percentage on terminal"""
+
+    humidity_percentage = weather_data['main']['humidity']
+
+    print("HUMIDITY")
+    print('Humidity Percentage: {}%\n'.format(round(humidity_percentage, 2)))
 
 def main(args=''):
     load_dotenv()
@@ -97,7 +101,9 @@ def main(args=''):
     weather_data = get_current_weather(api_key, city)
 
     # print weather info on terminal
+    print("{} WEATHER REPORT\n".format(city.upper()))
     show_current_temperature(weather_data, city)
+    show_current_humidity(weather_data, city)
 
 if __name__=="__main__":
     args = input('City: ')
