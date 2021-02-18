@@ -12,7 +12,6 @@ parser.add_argument("-w",
                     "--weather",
                     dest="city",
                     metavar="city",
-                    default="home",
                     help="Specify the city for which weather info is to be displayed")
 
 def cmd_weather(args):
