@@ -5,6 +5,7 @@ import json
 import os
 from dotenv import load_dotenv
 import argparse
+from termcolor import colored 
 
 def listPlaylist():
     """ Function to list the playlist of a certain user"""
@@ -29,11 +30,10 @@ def expandPlaylist(playlist):
             print('The tracks in the playlist {}:\n'.format(playlist))
             for i,item in enumerate(tracks['items']):
                 song = item['track']
-                print("%d %s  --  %s" %(i, song['name'], song['artists'][0]['name']))
+                print("%d %s  --  %s" %(i, song['name'], colored(song['artists'][0]['name'], 'green')))
             return
     raise Exception('playlist not found!\n')
-    
- 
+
 
 def main(args):
     # setting the environment variable by reading from key value pair from .env file
