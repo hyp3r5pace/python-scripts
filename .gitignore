@@ -1,3 +1,4 @@
 .env
 .weather-config
 __pycache__
+.cache
