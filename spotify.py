@@ -34,12 +34,22 @@ def expandPlaylist(playlist):
             return
     raise Exception('playlist not found!\n')
 
+def listArtist():
+    """Function to list the artists followed by the user"""
+    scope = 'user-follow-read'
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+    followList = sp.current_user_followed_artists()
+    artists = followList['artists']['items']
+    print("Artists followed by you:\n")
+    for i,item in enumerate(artists):
+        print("%d %s" %(i, item['name']))
 
 def main(args):
     # setting the environment variable by reading from key value pair from .env file
     load_dotenv()
-    if args.playlist    :listPlaylist()
-    if args.name        :expandPlaylist(args.name)
+    if args.playlist            :listPlaylist()
+    if args.name                :expandPlaylist(args.name)
+    if args.artistFollowed      :listArtist()
 
 if __name__ == "__main__":
     main()

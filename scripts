@@ -29,6 +29,12 @@ argsp.add_argument("-epl",
                    dest="name",
                    help="lists the tracks in the playlist passed as argument")
 
+argsp.add_argument("-fa",
+                   "--followedArtist",
+                   dest="artistFollowed",
+                   action="store_true",
+                   help="list the artists who are followed by the user")
+
 def cmd_weather(args):
     """Calls weather function and passes the argument provided by user"""
     if args.city == 'home':
