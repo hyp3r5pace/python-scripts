@@ -16,11 +16,30 @@ def listPlaylist():
     for i,item in enumerate(results['items']):
         print("%d %s" %(i, item['name']))
 
+def expandPlaylist(playlist):
+    """Function to list the songs in the playlist passed as argument"""
+    scope = 'playlist-read-private'
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+    playlists = sp.current_user_playlists()
+    for pl in playlists['items']:
+        if pl['name'].casefold() == playlist.casefold():
+            pl_id = pl['id']
+            results = sp.playlist(pl_id, fields="tracks,next")
+            tracks = results['tracks']
+            print('The tracks in the playlist {}:\n'.format(playlist))
+            for i,item in enumerate(tracks['items']):
+                song = item['track']
+                print("%d %s  --  %s" %(i, song['name'], song['artists'][0]['name']))
+            return
+    raise Exception('playlist not found!\n')
+    
+ 
 
 def main(args):
     # setting the environment variable by reading from key value pair from .env file
     load_dotenv()
-    if args.playlist:   listPlaylist()
+    if args.playlist    :listPlaylist()
+    if args.name        :expandPlaylist(args.name)
 
 if __name__ == "__main__":
     main()

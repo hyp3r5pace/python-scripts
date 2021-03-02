@@ -24,6 +24,10 @@ argsp.add_argument("-pl",
                     dest="playlist",
                     action="store_true",
                     help="lists the playlist of the user")
+argsp.add_argument("-epl",
+                   "--expandPlaylist",
+                   dest="name",
+                   help="lists the tracks in the playlist passed as argument")
 
 def cmd_weather(args):
     """Calls weather function and passes the argument provided by user"""
