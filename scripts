@@ -1,18 +1,29 @@
 #!/usr/bin/env/env python3
 
 import weather
+import spotify
 import sys
 import argparse
 
 
 parser = argparse.ArgumentParser()
+subparser = parser.add_subparsers(title="command", dest="command")
+subparser.required = True
 
 # add argument parser for weather display
-parser.add_argument("-w",
-                    "--weather",
+argsp = subparser.add_parser("weather", help="Get the weather info")
+argsp.add_argument("-c",
+                    "--city",
                     dest="city",
                     metavar="city",
                     help="Specify the city for which weather info is to be displayed")
+
+argsp = subparser.add_parser("spotify", help="Command to get access to spotify from the terminal")
+argsp.add_argument("-pl",
+                    "--playlist",
+                    dest="playlist",
+                    action="store_true",
+                    help="lists the playlist of the user")
 
 def cmd_weather(args):
     """Calls weather function and passes the argument provided by user"""
@@ -21,9 +32,11 @@ def cmd_weather(args):
     else:
         weather.main(args.city)
 
-
+def cmd_spotify(args):
+    spotify.main(args)
 
 if __name__ == "__main__":
     args = parser.parse_args()
 
-    if args.city     : cmd_weather(args)
+    if args.command == "weather"        : cmd_weather(args)
+    if args.command == "spotify"        : cmd_spotify(args)

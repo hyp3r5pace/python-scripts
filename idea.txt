@@ -1,0 +1,26 @@
+what to include spotify CLI app?
+
+1. Need to read authentication token from env file and authenticate user
+
+2. Show stats about the user's spotify account --
+    a)  User's playlist list and song's included in each playlist
+    
+    b)  list of songs sorted in order of most listened (all time, last month, last week) (Provide a option to limit
+        the number of songs to be shown --> list might be long)
+    
+    c)  list of artist user follow
+
+    d)  hours of music listened by the user (today/week (n)/ month (n)/ current year)
+
+    e)  most listened genre of music
+
+3. released songs in given time period (n week (0<= n <= 5), last n months (0 <= n <= 12), year (current year --> 
+   not showing songs released before current year as number of songs will be high and thus the time to compute the gathered data))
+
+4. Create/delete/edit playlist
+
+5. Play songs using a single command directly from the terminal
+
+6. Play a playlist using a single command (single pass or on loop)
+
+7. command to skip current song playing
