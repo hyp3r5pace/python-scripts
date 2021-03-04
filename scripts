@@ -18,6 +18,7 @@ argsp.add_argument("-c",
                     metavar="city",
                     help="Specify the city for which weather info is to be displayed")
 
+# add argument parser for spotify terminal application
 argsp = subparser.add_parser("spotify", help="Command to get access to spotify from the terminal")
 argsp.add_argument("-pl",
                     "--playlist",
@@ -34,6 +35,13 @@ argsp.add_argument("-fa",
                    dest="artistFollowed",
                    action="store_true",
                    help="list the artists who are followed by the user")
+
+argsp.add_argument("-tt",
+                  "--topTracks",
+                  dest="topTracks",
+                  choices=["all", "week", "month"],
+                  default="week",
+                  help="List the top tracks of the user")
 
 def cmd_weather(args):
     """Calls weather function and passes the argument provided by user"""

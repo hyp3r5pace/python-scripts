@@ -44,12 +44,27 @@ def listArtist():
     for i,item in enumerate(artists):
         print("%d %s" %(i, item['name']))
 
+def favouriteTracks(timeline=None):
+    """Function to list the favourite tracks of the user"""
+    scope = 'user-top-read'
+    sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+    if timeline == "all": 
+        topTracks = sp.current_user_top_tracks(time_range="long_term")['items']
+    elif timeline == "week":
+        topTracks = sp.current_user_top_tracks(time_range="short_term")["items"]
+    elif timeline == "month":
+        topTracks = sp.current_user_top_tracks(time_range="medium_term")["items"]
+    
+    for i,tracks in enumerate(topTracks):
+        print("%d %s" %(i, tracks['name']))
+
 def main(args):
     # setting the environment variable by reading from key value pair from .env file
     load_dotenv()
     if args.playlist            :listPlaylist()
     if args.name                :expandPlaylist(args.name)
     if args.artistFollowed      :listArtist()
+    if args.topTracks           :favouriteTracks(args.topTracks)
 
 if __name__ == "__main__":
     main()
